@@ -12,18 +12,6 @@ export default {
           component: () => import('@docs/getting-started.md'),
         },
         {
-          title: '最佳实践',
-          name: 'quick-start',
-          path: '/react/quick-start',
-          component: () => import('@/site/docs/starter.md'),
-        },
-        {
-          title: '更新日志',
-          name: 'changelog',
-          path: '/react/changelog',
-          component: () => import('@/CHANGELOG.md'),
-        },
-        {
           title: '组件概览',
           name: 'overview',
           path: '/react/overview',

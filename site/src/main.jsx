@@ -2,7 +2,6 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 
-// import tdesign style;
 import 'tdesign-react/style/index.js';
 import '@common/style/web/docs.less';
 

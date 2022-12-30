@@ -38,7 +38,7 @@ export const styleContent = `
 
 export const pkgContent = JSON.stringify(
   {
-    name: 'tdesign-react-demo',
+    name: 'design-react-demo',
     version: '1.0.0',
     description: 'React example starter project',
     keywords: ['react', 'starter'],

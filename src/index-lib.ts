@@ -2,7 +2,6 @@ import './style';
 
 const ENV = process.env.NODE_ENV;
 if (
-  ENV !== 'test' &&
   ENV !== 'production' &&
   typeof console !== 'undefined' &&
   console.warn && // eslint-disable-line no-console

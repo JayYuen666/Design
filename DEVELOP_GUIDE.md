@@ -195,8 +195,6 @@ npm run init button
 ```bash
 # 启动项目
 npm run start
-# 更新网站组件单元覆盖率徽章
-npm run update:coverage-badge
 # 编译站点
 npm run site
 # 编译站点预览
@@ -223,10 +221,6 @@ npm run test:e2e-gui
 
 # 更新测试用例snapshot
 npm run test:update
-
-# 生成测试覆盖率
-npm run update:coverage-badge
-# 生成分组件格式化后的覆盖率到site/test-coverage.js，区分unit和e2e
 
 # 自动修复 eslint 错误
 npm run lint:fix

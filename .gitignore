@@ -1,6 +1,5 @@
 node_modules
 .DS_Store
-coverage
 test/scripts/cypress/screenshots
 test/scripts/cypress/videos
 test/scripts/cypress/results
@@ -22,6 +21,5 @@ pnpm-lock.yaml
 temp*
 robotMsg.json
 .nyc_output
-cypress-coverage
 instrumented
 cy-report

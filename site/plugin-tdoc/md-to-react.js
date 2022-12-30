@@ -2,21 +2,13 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import camelCase from 'camelcase';
 import { compileUsage } from '../../src/_common/docs/compile';
-
-import testCoverage from '../test-coverage';
 
 import { transformSync } from '@babel/core';
 
 export default function mdToReact(options) {
   const mdSegment = customRender(options);
   const { demoDefsStr, demoCodesDefsStr } = options;
-
-  let coverage = {};
-  if (mdSegment.isComponent) {
-    coverage = testCoverage[camelCase(mdSegment.componentName)] || {};
-  }
 
   const reactSource = `
     import React, { useEffect, useRef, useState } from 'react';\n
@@ -46,11 +38,6 @@ export default function mdToReact(options) {
       const [tab, setTab] = useState(query.get('tab') || 'demo');
 
       useEffect(() => {
-        tdDocHeader.current.docInfo = {
-          title: \`${mdSegment.title}\`,
-          desc:  \`${mdSegment.description}\`
-        }
-
         if (isComponent) {
           tdDocTabs.current.tabs = ${JSON.stringify(mdSegment.tdDocTabs)};
         }
@@ -82,34 +69,17 @@ export default function mdToReact(options) {
 
       return (
         <>
-          ${
-            mdSegment.tdDocHeader
-              ? `<td-doc-header
-                slot="doc-header"
-                ref={tdDocHeader}
-                spline="${mdSegment.spline}"
-                platform="web"
-              >
-                ${
-                  mdSegment.isComponent
-                    ? `
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: lines" message="${
-                      coverage.lines || '0%'
-                    }" />
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: functions" message="${
-                      coverage.functions || '0%'
-                    }" />
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: statements" message="${
-                      coverage.statements || '0%'
-                    }" />
-                    <td-doc-badge style={{ marginRight: '10px' }} slot="badge" label="coverages: branches" message="${
-                      coverage.branches || '0%'
-                    }" />`
-                    : ''
-                }
-              </td-doc-header>`
-              : ''
-          }
+        ${
+          mdSegment.tdDocHeader
+            ? `<td-doc-header
+              slot="doc-header"
+              ref={tdDocHeader}
+              spline="${mdSegment.spline}"
+              platform="web"
+            >
+            </td-doc-header>`
+            : ''
+        }
           {
             isComponent ? (
               <>

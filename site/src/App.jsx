@@ -1,20 +1,13 @@
-import React, { useEffect, useRef, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useRef, lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Navigate, Route, useLocation, useNavigate, Outlet } from 'react-router-dom';
 import Loading from 'tdesign-react/loading';
-import Select from 'tdesign-react/select';
 import ConfigProvider from 'tdesign-react/config-provider';
-// import locale from 'tdesign-react/locale/zh_CN';
-// import locale from 'tdesign-react/locale/en_US';
 import siteConfig from '../site.config';
-import { getRoute, filterVersions } from './utils';
-import packageJson from '@/package.json';
+import { getRoute } from './utils';
 
 const LazyDemo = lazy(() => import('./components/Demo'));
 
 const { docs: routerList } = JSON.parse(JSON.stringify(siteConfig).replace(/component:.+/g, ''));
-
-const registryUrl = 'https://mirrors.tencent.com/npm/tdesign-react';
-const currentVersion = packageJson.version.replace(/\./g, '_');
 
 const docRoutes = getRoute(siteConfig.docs, []);
 const renderRouter = docRoutes.map((nav, i) => {
@@ -40,27 +33,7 @@ function Components() {
   const tdHeaderRef = useRef();
   const tdDocAsideRef = useRef();
   const tdDocContentRef = useRef();
-  const tdSelectRef = useRef();
   const tdDocSearch = useRef();
-
-  const [version] = useState(currentVersion);
-
-  function initHistoryVersions() {
-    fetch(registryUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        const options = [];
-        const versions = filterVersions(Object.keys(res.versions).filter((v) => !v.includes('-')));
-
-        versions.forEach((v) => {
-          const nums = v.split('.');
-          if (nums[0] === '0' && nums[1] < 21) return false;
-
-          options.unshift({ label: v, value: v.replace(/\./g, '_') });
-        });
-        tdSelectRef.current.options = options;
-      });
-  }
 
   useEffect(() => {
     tdHeaderRef.current.framework = 'react';
@@ -78,17 +51,6 @@ function Components() {
         window.scrollTo(0, 0);
       });
     };
-
-    tdSelectRef.current.onchange = ({ detail }) => {
-      const { value: version } = detail;
-      if (version === currentVersion) return;
-
-      const historyUrl = `https://${version}-tdesign-react.surge.sh`;
-      window.open(historyUrl, '_blank');
-      tdSelectRef.current.value = currentVersion;
-    };
-
-    initHistoryVersions();
   }, []);
 
   useEffect(() => {
@@ -96,13 +58,12 @@ function Components() {
   }, [location]);
 
   return (
-    <ConfigProvider /* globalConfig={{ animation: { exclude: ['ripple'] }}} */>
+    <ConfigProvider>
       <td-doc-layout>
         <td-header ref={tdHeaderRef} slot="header">
           <td-doc-search slot="search" ref={tdDocSearch} />
         </td-header>
         <td-doc-aside ref={tdDocAsideRef} title="React for Web">
-          <td-select ref={tdSelectRef} value={version} slot="extra"></td-select>
         </td-doc-aside>
 
         <td-doc-content ref={tdDocContentRef}>
