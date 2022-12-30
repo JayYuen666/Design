@@ -1,0 +1,37 @@
+﻿{
+  "compilerOptions": {
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "esnext",
+    "outDir": "lib",
+    "declaration": true,
+    "sourceMap": true,
+    "lib": ["esnext", "dom"],
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "baseUrl": "./",
+    "paths": {
+      "tdesign-react": ["src"],
+      "tdesign-react/*": ["src/*"],
+      "@common/*": ["src/_common/*"]
+    },
+    "allowJs": true,
+    "checkJs": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true
+  },
+  "include": ["./src", "./globals.d.ts"],
+  "exclude": ["**/**/_usage/*", "node_modules", "src/_common", "dist", "lib", "esm", "cjs", "es"],
+  "types": [
+    "node",
+    "jest",
+    "vitest/globals",
+    "@testing-library/jest-dom",
+    "@testing-library/react-hooks",
+    "@testing-library/react"
+  ],
+  "compileOnSave": false
+}
